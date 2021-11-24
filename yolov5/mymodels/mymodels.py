@@ -54,7 +54,7 @@ class ConvAutoencoder(nn.Module):
         return z
     
     #concatenate mymodel with  yolov5
-    class MyModel:
+    class MyModel(nn.Module):
         def __init__(self, sensor_fusion_model, yolov5_model):
             super().__init__():
             self.sensor_fusion_model = sensor_fusion_model
