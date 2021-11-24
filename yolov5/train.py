@@ -25,7 +25,7 @@ from torch.nn.parallel import DistributedDataParallel as DDP
 from torch.optim import SGD, Adam, lr_scheduler
 from tqdm import tqdm
 
-from mymodels import mymodels
+import mymodels
 
 FILE = Path(__file__).resolve()
 ROOT = FILE.parents[0]  # YOLOv5 root directory
@@ -128,7 +128,8 @@ def train(hyp,  # path/to/hyp.yaml or hyp dictionary
 
     #MyModel
     sensor_fusion_model = ConvAutoencoder()
-    model = MyModel(sensor_fusion_model, model)
+    model = nn.Sequential(sensor_fusion_model, model)
+    #model = MyModel(sensor_fusion_model, model)
 
     # Freeze
     freeze = [f'model.{x}.' for x in range(freeze)]  # layers to freeze
