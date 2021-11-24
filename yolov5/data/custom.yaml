@@ -1,0 +1,6 @@
+path: ../datasets
+train: images
+val: images
+test:  # test images (optional)
+nc: 4 
+names: ['Deficiency', 'Yellowing', 'Grape', 'Wilted', 'Mildew']
