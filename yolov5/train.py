@@ -270,7 +270,7 @@ def train(hyp,  # path/to/hyp.yaml or hyp dictionary
     features = nn.ModuleList(sensor_fusion_model.children())[:-1]
     model1 = nn.Sequential(*features)
     features2 = nn.ModuleList(model.children())[:-1]
-    model2 = nn.Sequential(*features)
+    model2 = nn.Sequential(*features2)
     model = nn.Sequential(model1, model2)
     #model = MyModel(sensor_fusion_model, model)
 

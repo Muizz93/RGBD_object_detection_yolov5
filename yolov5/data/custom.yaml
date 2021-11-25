@@ -1,6 +1,6 @@
 path: ../datasets
-train: images/train
-val: images/train
+train: images
+val: images
 test:  # test images (optional)
 nc: 5 
 names: ['Deficiency', 'Yellowing', 'Grape', 'Wilted', 'Mildew']
