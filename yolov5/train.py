@@ -205,9 +205,9 @@ def train(hyp,  # path/to/hyp.yaml or hyp dictionary
 
 
     #MyModel
-    sensor_fusion_model = ConvAutoencoder()
-    sensor_fusion_model.load_state_dict(csd, strict=False)
-    features = nn.ModuleList(sensor_fusion_model.children())[:-1]
+    encoder = ConvAutoencoder()
+    encoder.load_state_dict(csd, strict=False)
+    features = nn.ModuleList(encoder.children())[:-1]
     model1 = nn.Sequential(*features)
     features2 = nn.ModuleList(model.children())[:-1]
     model2 = nn.Sequential(*features2)
