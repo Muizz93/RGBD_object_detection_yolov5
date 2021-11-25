@@ -203,6 +203,17 @@ def train(hyp,  # path/to/hyp.yaml or hyp dictionary
 
         del ckpt, csd
 
+
+    #MyModel
+    sensor_fusion_model = ConvAutoencoder()
+    sensor_fusion_model.load_state_dict(csd, strict=False)
+    features = nn.ModuleList(sensor_fusion_model.children())[:-1]
+    model1 = nn.Sequential(*features)
+    features2 = nn.ModuleList(model.children())[:-1]
+    model2 = nn.Sequential(*features2)
+    model = nn.Sequential(model1, model2)
+    #model = MyModel(sensor_fusion_model, model)
+
     # DP mode
     if cuda and RANK == -1 and torch.cuda.device_count() > 1:
         LOGGER.warning('WARNING: DP not recommended, use torch.distributed.run for best DDP Multi-GPU results.\n'
@@ -263,16 +274,6 @@ def train(hyp,  # path/to/hyp.yaml or hyp dictionary
     model.hyp = hyp  # attach hyperparameters to model
     model.class_weights = labels_to_class_weights(dataset.labels, nc).to(device) * nc  # attach class weights
     model.names = names
-
-    #MyModel
-    sensor_fusion_model = ConvAutoencoder()
-    sensor_fusion_model.load_state_dict(csd, strict=False)
-    features = nn.ModuleList(sensor_fusion_model.children())[:-1]
-    model1 = nn.Sequential(*features)
-    features2 = nn.ModuleList(model.children())[:-1]
-    model2 = nn.Sequential(*features2)
-    model = nn.Sequential(model1, model2)
-    #model = MyModel(sensor_fusion_model, model)
 
     # Start training
     t0 = time.time()
