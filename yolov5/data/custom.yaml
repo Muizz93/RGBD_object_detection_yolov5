@@ -1,4 +1,4 @@
-path: ../datasets
+path: ../datasets/coco128
 train: images
 val: images
 test:  # test images (optional)
