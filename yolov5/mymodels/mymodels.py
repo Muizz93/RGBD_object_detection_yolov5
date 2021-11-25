@@ -3,7 +3,7 @@ import torch.nn as nn
 #Define the Convolutional Autoencoder
 class ConvAutoencoder(nn.Module):
     def __init__(self, ch_rgb=3, ch_d=1):
-        super().__init__()
+        super(ConvAutoencoder, self).__init__()
        
         #Encoder
         self.conv1rgb = nn.Conv2d(ch_rgb, 32, 11, padding=2)
@@ -18,6 +18,7 @@ class ConvAutoencoder(nn.Module):
         self.t_conv2 = nn.ConvTranspose2d(64, 32, 2, stride=4)
         self.t_conv3rgb = nn.ConvTranspose2d(32, ch_rgb, 2, stride=4)
         self.t_conv3depth = nn.ConvTranspose2d(32, ch_d, 2, stride=4)
+        
     def forward(self, rgb, depth):
         x = F.relu(self.conv1rgb(rgb))
         y = F.relu(self.conv1depth(depth))
@@ -54,11 +55,11 @@ class ConvAutoencoder(nn.Module):
         return z
     
     #concatenate mymodel with  yolov5
-    class MyModel(nn.Module):
-        def __init__(self, sensor_fusion_model, yolov5_model):
-            super().__init__():
-            self.sensor_fusion_model = sensor_fusion_model
-            self.yolov5_4ch = yolov5_model
+    class MyEnsemble(nn.Module):
+        def __init__(self, modelA, modelB):
+            super(MyEnsemble).__init__():
+            self.modelA = modelA
+            self.modelB = modelB
 
         def forward(self, rgb, depth):
             x = self.sensor_fusion_model(rgb, depth)
