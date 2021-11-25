@@ -1,6 +1,6 @@
 path: ../datasets
-train: images
-val: images
+train: images/RGB
+val: images/RGB
 test:  # test images (optional)
 nc: 5 
 names: ['Deficiency', 'Yellowing', 'Grape', 'Wilted', 'Mildew']
